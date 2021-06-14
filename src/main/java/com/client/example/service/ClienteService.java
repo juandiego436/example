@@ -45,6 +45,7 @@ public class ClienteService {
     
     public KpiClientesDTO kpiCliente(){
         try{
+            LOG.info("Inicio de Proceso Kpi");
             int sumatoria = 0;
             double media = 0;
             double varianza = 0.0;
@@ -83,6 +84,7 @@ public class ClienteService {
 
     public ResponseDTO kpi() {
         try {
+            LOG.info("Inicio de Crear Clientes");
             var data = kpiCliente();
             return new ResponseDTO(data, "Sucess", HttpStatus.OK);
         } catch (NoResultException e) {
@@ -92,6 +94,7 @@ public class ClienteService {
 
     public ResponseDTO list() {
         try {
+            LOG.info("Inicio de Listado de clientes");
             var kpi = kpiCliente();
             Long desviacion = Math.round(kpi.getDesviacionEstandar());
             LOG.debug("desviacion " + desviacion);
