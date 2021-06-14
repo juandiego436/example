@@ -1,7 +1,7 @@
 package com.client.example.dto;
 
 import com.client.example.entity.Cliente;
-import java.util.Date;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ListClientesDTO {
     private Cliente cliente;
-    private Date fechaProbableMuerte;
+    private LocalDate fechaProbableMuerte;
 }

@@ -1,12 +1,12 @@
 package com.client.example.service;
 
 import com.client.example.dto.KpiClientesDTO;
+import com.client.example.dto.ListClientesDTO;
 import com.client.example.dto.ResponseDTO;
 import com.client.example.entity.Cliente;
 import com.client.example.repository.ClienteRepository;
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.NoResultException;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClienteService {
 
-    private final Logger LOG = LoggerFactory.getLogger(ClienteService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ClienteService.class);
 
     @Autowired
     ClienteRepository repository;
@@ -58,24 +58,24 @@ public class ClienteService {
             for (Cliente c : clientes){
                 sumatoria = sumatoria + c.getEdad();
             }
-            LOG.info("Sumatoria es ", sumatoria);
+            LOG.info("Sumatoria es " + sumatoria);
             
             media = sumatoria/clientes.size();
-            LOG.info("Media ", media);
+            LOG.info("Media " + media);
             
             rango = Math.pow(clientes.size() - media, 2f);
-            LOG.debug("Ragon ", rango);
+            LOG.debug("Ragon " + rango);
             
             varianza = varianza + rango;
-            LOG.debug("Varianza ", varianza);
+            LOG.debug("Varianza " + varianza);
             
-            varianza = varianza / 11f;
-            LOG.debug("Varianza Obtenida", varianza);
+            varianza = varianza / clientes.size();
+            LOG.debug("Varianza Obtenida" + varianza);
             
             desviacion = Math.sqrt(varianza);
-            LOG.debug("Desviacion ", desviacion);
+            LOG.debug("Desviacion " + desviacion);
             
-            return new KpiClientesDTO(clientes,media,desviacion);
+            return new KpiClientesDTO(media,desviacion);
         }catch(NoResultException e){
             return null;
         }
@@ -92,8 +92,24 @@ public class ClienteService {
 
     public ResponseDTO list() {
         try {
-
-            return new ResponseDTO(null, "OK", HttpStatus.CREATED);
+            var kpi = kpiCliente();
+            Long desviacion = Math.round(kpi.getDesviacion());
+            LOG.debug("desviacion " + desviacion);
+            var clientes = repository.findAll();
+            if(clientes.spliterator().getExactSizeIfKnown() == 0){
+                return new ResponseDTO(null,"No hay clientes",HttpStatus.NOT_FOUND);
+            }
+            List<ListClientesDTO> listado = new ArrayList<>();
+            clientes.forEach((c)->{
+                ListClientesDTO cdto = new ListClientesDTO();
+                cdto.setCliente(c);
+                Long year = c.getEdad() + desviacion;
+                LOG.debug("Años a morir " + year);
+                LocalDate feDate = c.getFechaNacimiento().plusYears(year);
+                cdto.setFechaProbableMuerte(feDate);
+                listado.add(cdto);
+            });
+            return new ResponseDTO(listado, "Success", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseDTO(null, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
