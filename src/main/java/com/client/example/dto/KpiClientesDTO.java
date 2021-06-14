@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class KpiClientesDTO {
-    private Double media;
-    private Double desviacion;
+    private Double promedio;
+    private Double desviacionEstandar;
 }

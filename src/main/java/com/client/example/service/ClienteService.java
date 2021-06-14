@@ -93,7 +93,7 @@ public class ClienteService {
     public ResponseDTO list() {
         try {
             var kpi = kpiCliente();
-            Long desviacion = Math.round(kpi.getDesviacion());
+            Long desviacion = Math.round(kpi.getDesviacionEstandar());
             LOG.debug("desviacion " + desviacion);
             var clientes = repository.findAll();
             if(clientes.spliterator().getExactSizeIfKnown() == 0){
