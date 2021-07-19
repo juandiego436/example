@@ -22,19 +22,19 @@ public class ClienteController {
     
     @PostMapping(path = "/crea",produces = "application/json", consumes = "application/json")
     public ResponseEntity<ResponseDTO> creaCliente(@RequestBody Cliente cliente){
-        var response = service.create(cliente);
+        ResponseDTO response = service.create(cliente);
         return ResponseEntity.status(response.getStatus()).body(new ResponseDTO<>(response.getData(),response.getMessage(),response.getStatus()));
     }
     
     @GetMapping(path = "/kpi", produces = "application/json")
     public ResponseEntity<ResponseDTO> kpiClientes(){
-        var response = service.kpi();
+        ResponseDTO response = service.kpi();
         return ResponseEntity.status(response.getStatus()).body(new ResponseDTO<>(response.getData(),response.getMessage(),response.getStatus()));
     }
     
     @GetMapping(path = "/list", produces = "application/json")
     public ResponseEntity<ResponseDTO> list(){
-        var response = service.list();
+        ResponseDTO response = service.list();
         return ResponseEntity.status(response.getStatus()).body(new ResponseDTO<>(response.getData(),response.getMessage(),response.getStatus()));
     }
 }

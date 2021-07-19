@@ -35,7 +35,7 @@ public class ClienteService {
             if (c.getNombre().isEmpty() | c.getApellido().isEmpty()) {
                 return new ResponseDTO(null, "Estos datos son requeridos", HttpStatus.BAD_REQUEST);
             }
-            var data = repository.save(c);
+            Cliente data = repository.save(c);
             LOG.info("Cliente creado : " + data);
             return new ResponseDTO(data, "OK", HttpStatus.CREATED);
         } catch (Exception e) {
@@ -84,8 +84,12 @@ public class ClienteService {
 
     public ResponseDTO kpi() {
         try {
+<<<<<<< Updated upstream
             LOG.info("Inicio de Crear Clientes");
             var data = kpiCliente();
+=======
+            KpiClientesDTO data = kpiCliente();
+>>>>>>> Stashed changes
             return new ResponseDTO(data, "Sucess", HttpStatus.OK);
         } catch (NoResultException e) {
             return new ResponseDTO(null, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -94,11 +98,15 @@ public class ClienteService {
 
     public ResponseDTO list() {
         try {
+<<<<<<< Updated upstream
             LOG.info("Inicio de Listado de clientes");
             var kpi = kpiCliente();
+=======
+            KpiClientesDTO kpi = kpiCliente();
+>>>>>>> Stashed changes
             Long desviacion = Math.round(kpi.getDesviacionEstandar());
             LOG.debug("desviacion " + desviacion);
-            var clientes = repository.findAll();
+            Iterable<Cliente> clientes = repository.findAll();
             if(clientes.spliterator().getExactSizeIfKnown() == 0){
                 return new ResponseDTO(null,"No hay clientes",HttpStatus.NOT_FOUND);
             }
