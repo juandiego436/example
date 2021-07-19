@@ -84,12 +84,7 @@ public class ClienteService {
 
     public ResponseDTO kpi() {
         try {
-<<<<<<< Updated upstream
-            LOG.info("Inicio de Crear Clientes");
-            var data = kpiCliente();
-=======
             KpiClientesDTO data = kpiCliente();
->>>>>>> Stashed changes
             return new ResponseDTO(data, "Sucess", HttpStatus.OK);
         } catch (NoResultException e) {
             return new ResponseDTO(null, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -98,12 +93,7 @@ public class ClienteService {
 
     public ResponseDTO list() {
         try {
-<<<<<<< Updated upstream
-            LOG.info("Inicio de Listado de clientes");
-            var kpi = kpiCliente();
-=======
             KpiClientesDTO kpi = kpiCliente();
->>>>>>> Stashed changes
             Long desviacion = Math.round(kpi.getDesviacionEstandar());
             LOG.debug("desviacion " + desviacion);
             Iterable<Cliente> clientes = repository.findAll();
