@@ -18,4 +18,28 @@ public class ResponseDTO<E> implements Serializable {
         this.data = data;
         this.message = message;
     }
+
+	public E getData() {
+		return data;
+	}
+
+	public void setData(E data) {
+		this.data = data;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public HttpStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(HttpStatus status) {
+		this.status = status;
+	}
 }
