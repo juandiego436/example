@@ -36,7 +36,7 @@ public class Cliente implements Serializable {
     private Integer edad;
 
     @Column(name = "fecha_nacimiento", columnDefinition = "DATE")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING ,pattern = "yyyy-MM-dd")
     private LocalDate fechaNacimiento;
 
     @Override
