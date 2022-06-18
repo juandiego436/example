@@ -1,5 +1,6 @@
 package com.client.example.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.Column;
@@ -35,6 +36,7 @@ public class Cliente implements Serializable {
     private Integer edad;
 
     @Column(name = "fecha_nacimiento", columnDefinition = "DATE")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaNacimiento;
 
     @Override

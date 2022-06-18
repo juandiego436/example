@@ -1,9 +1,12 @@
 com\client\example\config\MyConfiguration.class
 com\client\example\entity\Cliente.class
 com\client\example\dto\ResponseDTO.class
+com\client\example\service\impl\ClienteServiceImpl.class
+com\client\example\util\Constant.class
 com\client\example\ExampleApplication.class
 com\client\example\repository\ClienteRepository.class
 com\client\example\config\MyConfiguration$1.class
+com\client\example\dto\ExceptionResponse.class
 com\client\example\dto\KpiClientesDTO.class
 com\client\example\config\SwaggerConfig.class
 com\client\example\controller\ClienteController.class
